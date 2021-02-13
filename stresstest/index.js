@@ -6,40 +6,11 @@ const app = express();
 app.set("trust proxy", true);
 app.use(json({ limit: '100kb' }));
 
-app.get("/ping", (req, res) => {
-  const timestamp = + new Date();
+app.use(express.static('public'));
 
-  res.json({
-    reachedServer: timestamp
-  });
-});
-
-app.post("/ping", (req, res) => {
-  const timestamp = + new Date();
-
-  res.json({
-    reachedServer: timestamp
-  });
-});
-
-app.put("/ping", (req, res) => {
-  const timestamp = + new Date();
-
-  res.json({
-    reachedServer: timestamp
-  });
-});
-
-app.delete("/ping", (req, res) => {
-  const timestamp = + new Date();
-
-  res.json({
-    reachedServer: timestamp
-  });
-});
-
-
-
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/pages/index.html")
+})
 
 app.listen(3000, () => {
   console.log("Listening on *:3000");
