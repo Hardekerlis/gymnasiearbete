@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delete-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delete
+  template:
+    metadata:
+      labels:
+        app: delete
+    spec:
+      containers:
+        - name: delete
+          image: gustafdahl/delete
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: delete-srv
+spec:
+  selector:
+    app: delete
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP

@@ -1,0 +1,48 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: gustafdahl/get
+      context: micro/get
+      sync:
+        manual:
+          - src: /*.js
+            dest: .
+    - image: gustafdahl/post
+      context: micro/post
+      sync:
+        manual:
+          - src: /*.js
+            dest: .
+    - image: gustafdahl/put
+      context: micro/put
+      sync:
+        manual:
+          - src: /*.js
+            dest: .
+    - image: gustafdahl/delete
+      context: micro/delete
+      sync:
+        manual:
+          - src: /*.js
+            dest: .
+    - image: gustafdahl/mono
+      context: mono
+      sync:
+        manual:
+          - src: /*.js
+            dest: .
+    - image: gustafdahl/stresstest
+      docker:
+        dockerfile: Dockerfile.dev
+      context: stresstest
+      sync:
+        manual:
+          - src: "src/**/*"
+            dest: .

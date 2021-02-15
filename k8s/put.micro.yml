@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: put-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: put
+  template:
+    metadata:
+      labels:
+        app: put
+    spec:
+      containers:
+        - name: put
+          image: gustafdahl/put
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: put-srv
+spec:
+  selector:
+    app: put
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
