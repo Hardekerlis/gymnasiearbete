@@ -1,39 +1,45 @@
 const express = require("express");
 const { json } = require("body-parser");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 app.set("trust proxy", true);
 app.use(json({ limit: '100kb' }));
 
-app.get("/ping", (req, res) => {
+app.get("/ping/:bust", (req, res) => {
   const timestamp = + new Date();
 
   res.json({
+    method: "get",
     reachedServer: timestamp
   });
 });
 
-app.post("/ping", (req, res) => {
+app.post("/ping/:bust", (req, res) => {
   const timestamp = + new Date();
 
   res.json({
+    method: "post",
     reachedServer: timestamp
   });
 });
 
-app.put("/ping", (req, res) => {
+app.put("/ping/:bust", (req, res) => {
   const timestamp = + new Date();
 
   res.json({
+    method: "put",
     reachedServer: timestamp
   });
 });
 
-app.delete("/ping", (req, res) => {
+app.delete("/ping/:bust", (req, res) => {
   const timestamp = + new Date();
 
   res.json({
+    method: "delete",
     reachedServer: timestamp
   });
 });

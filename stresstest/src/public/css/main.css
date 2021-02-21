@@ -1,6 +1,11 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Source Code Pro', monospace;
+}
+
+.disabled:hover {
+  cursor: not-allowed !important;
 }
 
 .container {
@@ -11,25 +16,57 @@
   overflow: auto;
 }
 
+.container h2 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.container .startButton {
+  width: 80vw;
+  height: 50px;
+  border: none;
+  outline: none;
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+}
+
+.container .startButton:focus, .container .startButton:hover {
+  border: dotted 1px black;
+  cursor: pointer;
+  background-color: #666;
+}
+
 .consoleContainer {
   width: 80vw;
-  height: 80vh;
+  height: 60vh;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 40px;
   border-radius: 5px;
   background-color: #000;
-
+  /* display: none; */
 }
 
 .consoleContainer p {
   width: 100%;
   display: block;
+  color: #FFF;
   /* text-align: center; */
 }
 
-.consoleBody {
-  height: calc(100% - 18px);
+.consoleContainer .consoleBody {
+  height: calc(100% - 38px);
   width: 100%;
-  display: block;
+  display: flex;
+  flex-direction: column-reverse;
   margin: auto;
+  overflow-y: scroll;
+  padding-bottom: 20px;
+}
+
+.consoleContainer .consoleBody .consoleText {
+  color: #FFF;
+  padding: 3px 20px;
+  padding-right: 0;
+  width: calc(100% - 20px)
 }

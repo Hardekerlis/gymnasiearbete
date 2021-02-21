@@ -1,12 +1,14 @@
 const express = require("express");
 const { json } = require("body-parser");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 app.set("trust proxy", true);
 app.use(json({ limit: '100kb' }));
 
-app.delete("/ping/delete", (req, res) => {
+app.delete("/ping/delete/:bust", (req, res) => {
   const timestamp = + new Date();
 
   res.json({
