@@ -29,13 +29,55 @@ class Cnsl {
 
 const startBtn = document.getElementById("startButton");
 
+// const testWithSleep = async (amount) => {
+//   const res = await setTimeout(() => {
+//     runTests(amount);
+//     return true;
+//   }, 4000);
+//
+//   return res;
+// }
+
 // Initalize console class
 const cnsl = new Cnsl(document.getElementById("consoleBody"));
 
-startBtn.addEventListener("click", (e) => {
+startBtn.addEventListener("click", async (e) => {
   startBtn.disabled = true;
   startBtn.classList.toggle("disabled");
-  runTests(2400);
+
+  // This runs each test x amounts of time
+  // await runTests(48);
+  //
+  setTimeout(async () => {
+     await runTests(24);
+
+     setTimeout(async () => {
+       await runTests(48);
+
+       setTimeout(async () => {
+          await runTests(240);
+
+          setTimeout(async () => {
+            await runTests(480);
+
+            setTimeout(async () => {
+               await runTests(2400);
+
+               setTimeout(async () => {
+                 await runTests(4800);
+               }, 4000);
+            }, 4000);
+          }, 4000);
+       }, 4000);
+     }, 4000);
+  }, 4000);
+
+  // const test = await testWithSleep(24);
+  // console.log(test);
+  // await testWithSleep(48);
+
+
+
 
   // Timestamps
   // I will collect the timestamp when the request is sent
@@ -78,15 +120,14 @@ const runTests = async (times) => {
       cnsl.print(`[Mono] - Method: ${res.method} - Request ${i - times + 1} out of ${times}`);
     }
   }
+
   let avgResult = {};
 
   for(let i in results) {
     let avgResTime = 0;
     let incr = 0;
     for(let j in results[i]) {
-      // console.log(results[i][j])
       for(let m of results[i][j]) {
-        // console.log(i, j, m)
         avgResTime += m;
         incr++;
       }
