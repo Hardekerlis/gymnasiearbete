@@ -47,30 +47,28 @@ startBtn.addEventListener("click", async (e) => {
 
   // This runs each test x amounts of time
   // await runTests(48);
-  //
-  setTimeout(async () => {
-     await runTests(24);
+//
+   await runTests(24);
+
+   setTimeout(async () => {
+     await runTests(48);
 
      setTimeout(async () => {
-       await runTests(48);
+        await runTests(240);
 
-       setTimeout(async () => {
-          await runTests(240);
+        setTimeout(async () => {
+          await runTests(480);
 
           setTimeout(async () => {
-            await runTests(480);
+             await runTests(2400);
 
-            setTimeout(async () => {
-               await runTests(2400);
-
-               setTimeout(async () => {
-                 await runTests(4800);
-               }, 4000);
-            }, 4000);
+             setTimeout(async () => {
+               await runTests(4800);
+             }, 4000);
           }, 4000);
-       }, 4000);
+        }, 4000);
      }, 4000);
-  }, 4000);
+   }, 4000);
 
   // const test = await testWithSleep(24);
   // console.log(test);
@@ -108,17 +106,21 @@ const runTests = async (times) => {
       delete: []
     }
   };
+
   for(let i = 0; i < times*2; i++) {
+    let resultTxt;
     if(i < times) {
       const res = await runMicro(i);
       results.micro[res.method].push(res.resTime);
-      cnsl.print(`[Micro] - Method: ${res.method} - Request ${i + 1} out of ${times}`);
+      resultTxt = `[Micro] - Method: ${res.method} - Request ${i + 1} out of ${times}`;
 
     }else {
       const res = await runMono(i);
       results.mono[res.method].push(res.resTime);
-      cnsl.print(`[Mono] - Method: ${res.method} - Request ${i - times + 1} out of ${times}`);
+      resultTxt = `[Mono] - Method: ${res.method} - Request ${i - times + 1} out of ${times}`;
     }
+
+    cnsl.print(resultTxt);
   }
 
   let avgResult = {};
@@ -139,6 +141,11 @@ const runTests = async (times) => {
   cnsl.print(`Average response time for micro design: ${avgResult.micro}ms`);
   cnsl.print(`Average response time for mono design: ${avgResult.mono}ms`);
   startBtn.classList.toggle("disabled");
+
+  const resultElem = document.getElementById("collectedResults");
+  let resultCollect = resultElem.innerText + `[${times}]` + `Average response time for micro design: ${avgResult.micro}ms; ` + `Average response time for mono design: ${avgResult.mono}ms \n`;
+  resultElem.innerText = resultCollect
+  // resultElem.innerHtml += resultElem.innerHtml + `Average response time for micro design: ${avgResult.micro}ms;` + `Average response time for mono design: ${avgResult.mono}ms <br>`;
 
   startBtn.disabled = false;
 }

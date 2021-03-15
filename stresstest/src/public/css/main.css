@@ -21,6 +21,13 @@
   margin-top: 30px;
 }
 
+.container .collectedResults {
+  text-align: center;
+  padding-top: 10px;
+  height: 100px;
+  overflow-y: scroll;
+}
+
 .container .startButton {
   width: 80vw;
   height: 50px;
